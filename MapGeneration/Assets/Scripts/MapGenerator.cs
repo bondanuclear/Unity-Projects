@@ -13,18 +13,18 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] bool randomizeSeed = false;
     [SerializeField] IMapGenerator mapGenerators;
     private Vector2 seed;
-    void Awake()
+    public void Awake()
     {
         if(randomizeSeed)
         {
             seed = new Vector2(Random.Range(0f, 9999f), Random.Range(0f, 9999f));
         }
         // Get the Terrain component
-        mapGenerators = GetComponent<IMapGenerator>();
+        mapGenerators = new PerlinNoiseMapGenerator();
         terrain = GetComponent<Terrain>();
         
     }
-
+    
     // TerrainData GenerateTerrain(TerrainData terrainData)
     // {
     //     terrainData.heightmapResolution = terrainWidth + 1;
@@ -32,6 +32,7 @@ public class MapGenerator : MonoBehaviour
     //     terrainData.SetHeights(0, 0, GenerateHeights());
     //     return terrainData;
     // }
+    
     public void GenerateIMapGenerator()
     {
         if (randomizeSeed)
@@ -44,6 +45,21 @@ public class MapGenerator : MonoBehaviour
         }
         terrain.terrainData = mapGenerators.GenerateTerrainData(terrainWidth, terrainLength, terrainHeight, seed, scale);
     }
+    public TerrainData TestTerrainSpawn()
+    {
+        if (randomizeSeed)
+        {
+            seed = new Vector2(Random.Range(0f, 9999f), Random.Range(0f, 9999f));
+
+        }
+        else
+        {
+            seed = Vector2.zero;
+        }
+        terrain.terrainData = mapGenerators.GenerateTerrainData(terrainWidth, terrainLength, terrainHeight, seed, scale);
+        return terrain.terrainData;
+    }
+
     // float[,] GenerateHeights()
     // {
     //     float[,] heights = new float[terrainWidth, terrainLength];
