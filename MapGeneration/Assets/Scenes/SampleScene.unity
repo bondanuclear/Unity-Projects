@@ -159,7 +159,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -37.2, y: -35.6}
+  m_AnchoredPosition: {x: -37.19995, y: -35.599976}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &319070917
@@ -208,7 +208,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 720992229}
         m_TargetAssemblyTypeName: MapGenerator, Assembly-CSharp
-        m_MethodName: GenerateFromUI
+        m_MethodName: GenerateIMapGenerator
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -498,6 +498,7 @@ GameObject:
   - component: {fileID: 720992227}
   - component: {fileID: 720992226}
   - component: {fileID: 720992229}
+  - component: {fileID: 720992230}
   m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
@@ -596,6 +597,18 @@ MonoBehaviour:
   terrainHeight: 50
   scale: 5
   randomizeSeed: 1
+--- !u!114 &720992230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 720992225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8ac17ec6746d24ebc96e9b1b705cd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
