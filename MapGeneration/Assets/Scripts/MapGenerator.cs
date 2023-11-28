@@ -21,7 +21,7 @@ public class MapGenerator : MonoBehaviour
         set { randomizeSeed = value;}
     }
     [SerializeField] IMapGenerator mapGenerators;
-    [SerializeField] List<HousePlacer> buildings;
+    [SerializeField] List<BuildingBase> buildings;
     List<GameObject> instantiatedBuildings;
     [SerializeField] int numBuildings = 20;
     private Vector2 seed;
@@ -77,18 +77,16 @@ public class MapGenerator : MonoBehaviour
            
             position.y = terrainHeight;
         
-            HousePlacer buildingPrefab = buildings[Random.Range(0, buildings.Count)];
+            BuildingBase buildingPrefab = buildings[Random.Range(0, buildings.Count)];
 
             Vector3 boxSize = buildingPrefab.BoxSize;
            
             if (!Physics.CheckBox(position, boxSize))
             {
                 float Ycoord = Random.Range(0, 359);
-                // If not, instantiate the building at the chosen position
-                HousePlacer buildingInstance = Instantiate(buildingPrefab, position, Quaternion.Euler(0, Ycoord, 0));
+                GameObject buildingInstance = buildingPrefab.PlaceBuilding(position, Quaternion.Euler(0,Ycoord,0));
+                
                 Vector3 normal = terrain.terrainData.GetInterpolatedNormal(position.x / terrain.terrainData.size.x, position.z / terrain.terrainData.size.z);
-
-                // Rotate the building to align with the normal
                 buildingInstance.transform.rotation = Quaternion.FromToRotation(buildingInstance.transform.up, normal) * buildingInstance.transform.rotation;
                 Debug.Log("Not overlapping");
             }else
