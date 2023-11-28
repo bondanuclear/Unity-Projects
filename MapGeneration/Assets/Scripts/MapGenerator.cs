@@ -23,7 +23,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] IMapGenerator mapGenerators;
     [SerializeField] List<HousePlacer> buildings;
     List<GameObject> instantiatedBuildings;
-    [SerializeField] int numBuildings = 4;
+    [SerializeField] int numBuildings = 20;
     private Vector2 seed;
     public Vector2 Seed => seed;
     private const float MinRandomRange = 0f;
@@ -86,9 +86,13 @@ public class MapGenerator : MonoBehaviour
             // Check if the space is already occupied
             if (!Physics.CheckBox(position, boxSize))
             {
+                float Ycoord = Random.Range(0, 359);
                 // If not, instantiate the building at the chosen position
-                buildingPrefab.PlaceBuilding(position, Quaternion.identity);
-                Debug.Log("Overlapping");
+                buildingPrefab.PlaceBuilding(position, Quaternion.Euler(0, Ycoord,0));
+                Debug.Log("Not overlapping");
+            }else
+            {
+                Debug.Log("Already occupied!");
             }
         }
     }
