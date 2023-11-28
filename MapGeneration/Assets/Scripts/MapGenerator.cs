@@ -70,32 +70,26 @@ public class MapGenerator : MonoBehaviour
     {
         for (int i = 0; i < numBuildings; i++)
         {
-            // Choose a random position on the terrain
+            
             Vector3 position = new Vector3(Random.Range(0, terrainLength), 0, Random.Range(0, terrainWidth));
-
-            // Get the terrain height at the chosen position
             float terrainHeight = terrain.SampleHeight(position);
             Debug.Log(terrainHeight);
-            // Adjust the y coordinate of the position to match the terrain height
+           
             position.y = terrainHeight;
-
-            // Choose a random building prefab
+        
             HousePlacer buildingPrefab = buildings[Random.Range(0, buildings.Count)];
 
-            // Define the size of the box to check. You might need to adjust this based on the size of your buildings.
             Vector3 boxSize = buildingPrefab.BoxSize;
            
-            // Check if the space is already occupied
             if (!Physics.CheckBox(position, boxSize))
             {
                 float Ycoord = Random.Range(0, 359);
                 // If not, instantiate the building at the chosen position
-                buildingPrefab.PlaceBuilding(position, Quaternion.Euler(0, Ycoord,0));
+                HousePlacer buildingInstance = Instantiate(buildingPrefab, position, Quaternion.Euler(0, Ycoord, 0));
                 Vector3 normal = terrain.terrainData.GetInterpolatedNormal(position.x / terrain.terrainData.size.x, position.z / terrain.terrainData.size.z);
-                Debug.Log(normal + " NORMAL " + " POSITION IS " + position);
-                Debug.DrawRay(position, normal, Color.red);
+
                 // Rotate the building to align with the normal
-                buildingPrefab.transform.up = normal;
+                buildingInstance.transform.rotation = Quaternion.FromToRotation(buildingInstance.transform.up, normal) * buildingInstance.transform.rotation;
                 Debug.Log("Not overlapping");
             }else
             {
