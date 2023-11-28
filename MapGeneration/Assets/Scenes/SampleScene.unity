@@ -625,9 +625,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   terrainWidth: 256
   terrainLength: 256
-  terrainHeight: 50
+  terrainHeight: 20
   scale: 5
   randomizeSeed: 1
+  buildings:
+  - {fileID: 1281573933085876583, guid: fc1091b5299461a498da2a42cc13864b, type: 3}
+  - {fileID: 1281573933085876583, guid: 7e993e8c415d3fd4da3d873ed989e27b, type: 3}
+  numBuildings: 4
 --- !u!114 &720992230
 MonoBehaviour:
   m_ObjectHideFlags: 0
