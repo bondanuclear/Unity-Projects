@@ -5,91 +5,55 @@ using UnityEngine;
 public class MapGenerator : MonoBehaviour
 {
     [SerializeField] int terrainWidth = 256;
+    public int TerrainWidth => terrainWidth;
     [SerializeField] int terrainLength = 256;
+    public int TerrainLength => terrainLength;
     [SerializeField] int terrainHeight = 10;
+    public int TerrainHeight => terrainHeight;
     [SerializeField] float scale = 5;
     
     private Terrain terrain;
     [SerializeField] bool randomizeSeed = false;
+    public bool RandomizeSeed
+    {
+        get { return randomizeSeed; }
+        set { randomizeSeed = value;}
+    }
     [SerializeField] IMapGenerator mapGenerators;
     private Vector2 seed;
+    public Vector2 Seed => seed;
+    private const float MinRandomRange = 0f;
+    private const float MaxRandomRange = 9999f;
     public void Awake()
     {
-        if(randomizeSeed)
-        {
-            seed = new Vector2(Random.Range(0f, 9999f), Random.Range(0f, 9999f));
-        }
-        // Get the Terrain component
-        mapGenerators = new PerlinNoiseMapGenerator();
+        GenerateSeed();
+        mapGenerators = GetComponent<IMapGenerator>();
         terrain = GetComponent<Terrain>();
         
     }
-    
-    // TerrainData GenerateTerrain(TerrainData terrainData)
-    // {
-    //     terrainData.heightmapResolution = terrainWidth + 1;
-    //     terrainData.size = new Vector3(terrainWidth, terrainHeight, terrainLength);
-    //     terrainData.SetHeights(0, 0, GenerateHeights());
-    //     return terrainData;
-    // }
-    
-    public void GenerateIMapGenerator()
+    private void GenerateSeed()
     {
         if (randomizeSeed)
         {
-            seed = new Vector2(Random.Range(0f, 9999f), Random.Range(0f, 9999f));
-
-        } else
-        {
-            seed = Vector2.zero;
-        }
-        terrain.terrainData = mapGenerators.GenerateTerrainData(terrainWidth, terrainLength, terrainHeight, seed, scale);
-    }
-    public TerrainData TestTerrainSpawn()
-    {
-        if (randomizeSeed)
-        {
-            seed = new Vector2(Random.Range(0f, 9999f), Random.Range(0f, 9999f));
-
+            seed = new Vector2(Random.Range(MinRandomRange, MaxRandomRange), Random.Range(MinRandomRange, MaxRandomRange));
         }
         else
         {
             seed = Vector2.zero;
         }
+    }
+    
+
+    public void GenerateIMapGenerator()
+    {
+        GenerateSeed();
         terrain.terrainData = mapGenerators.GenerateTerrainData(terrainWidth, terrainLength, terrainHeight, seed, scale);
+    }
+    public TerrainData TestTerrainSpawn()
+    {
+        GenerateIMapGenerator();
         return terrain.terrainData;
     }
 
-    // float[,] GenerateHeights()
-    // {
-    //     float[,] heights = new float[terrainWidth, terrainLength];
-    //     for (int x = 0; x < terrainWidth; x++)
-    //     {
-    //         for (int y = 0; y < terrainLength; y++)
-    //         {
-    //             heights[x, y] = CalculateHeight(x, y);
-    //         }
-    //     }
-    //     return heights;
-    // }
-
-    // float CalculateHeight(int x, int y)
-    // {
-    //     float xCoord = seed.x + (float)x / terrainWidth * scale;
-    //     float yCoord = seed.y + (float)y / terrainLength * scale;
-
-    //     return Mathf.PerlinNoise(xCoord, yCoord);
-    // }
-    // public void GenerateFromUI()
-    // {
-    //     if (randomizeSeed)
-    //     {
-    //         seed = new Vector2(Random.Range(0f, 9999f), Random.Range(0f, 9999f));
-           
-    //     } else
-    //     {
-    //         seed = Vector2.zero;
-    //     }
-    //     terrain.terrainData = GenerateTerrain(terrain.terrainData);
-    // }
+    
 }
