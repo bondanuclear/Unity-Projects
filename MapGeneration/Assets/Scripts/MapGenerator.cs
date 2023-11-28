@@ -22,7 +22,7 @@ public class MapGenerator : MonoBehaviour
     }
     [SerializeField] IMapGenerator mapGenerators;
     [SerializeField] List<BuildingBase> buildings;
-    List<GameObject> instantiatedBuildings;
+    
     [SerializeField] int numBuildings = 20;
     private Vector2 seed;
     public Vector2 Seed => seed;
@@ -58,7 +58,7 @@ public class MapGenerator : MonoBehaviour
     }
     private void DestroyBuildings()
     {
-        HousePlacer[] buildings = FindObjectsOfType<HousePlacer>();
+        BuildingBase[] buildings = FindObjectsOfType<BuildingBase>();
         if(buildings.Length <= 0) return;
         foreach(var building in buildings)
         {
@@ -88,10 +88,7 @@ public class MapGenerator : MonoBehaviour
                 
                 Vector3 normal = terrain.terrainData.GetInterpolatedNormal(position.x / terrain.terrainData.size.x, position.z / terrain.terrainData.size.z);
                 buildingInstance.transform.rotation = Quaternion.FromToRotation(buildingInstance.transform.up, normal) * buildingInstance.transform.rotation;
-                Debug.Log("Not overlapping");
-            }else
-            {
-                Debug.Log("Already occupied!");
+                
             }
         }
     }
@@ -107,18 +104,10 @@ public class MapGenerator : MonoBehaviour
     private void ApplyTexture()
     {
         TerrainLayer terrainLayer = new TerrainLayer();
-
-        // Assign your texture to the TerrainLayer
         terrainLayer.diffuseTexture = texture;
-
-        // Get the current array of TerrainLayers
         TerrainLayer[] terrainLayers = terrain.terrainData.terrainLayers;
-
-        // Add your new TerrainLayer to the array
         System.Array.Resize(ref terrainLayers, terrainLayers.Length + 1);
         terrainLayers[terrainLayers.Length - 1] = terrainLayer;
-
-        // Assign the updated array back to the TerrainData
         terrain.terrainData.terrainLayers = terrainLayers;
     }
 
