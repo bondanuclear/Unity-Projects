@@ -3,22 +3,52 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+/// <summary>
+/// Generates and manages the terrain and building placement in the scene.
+/// </summary>
 public class MapGenerator : MonoBehaviour
 {
+    /// <summary>
+    /// Width of the terrain.
+    /// </summary>
     [SerializeField] int terrainWidth = 256;
+    /// <summary>
+    /// Gets the width of the terrain.
+    /// </summary>
     public int TerrainWidth => terrainWidth;
+    /// <summary>
+    /// Length of the terrain.
+    /// </summary>
     [SerializeField] int terrainLength = 256;
+    /// <summary>
+    /// Gets the length of the terrain.
+    /// </summary>
     public int TerrainLength => terrainLength;
+    /// <summary>
+    /// Height of the terrain.
+    /// </summary>
     [SerializeField] int terrainHeight = 10;
+    /// <summary>
+    /// Gets the height of the terrain.
+    /// </summary>
     public int TerrainHeight => terrainHeight;
+    /// <summary>
+    /// Scaling factor for the terrain.
+    /// </summary>
     [SerializeField] float scale = 5;
     
     private Terrain terrain;
+    /// <summary>
+    /// Flag for randomizing the seed.
+    /// </summary>
     [SerializeField] bool randomizeSeed = false;
 
     [Header("Building spawn parameters: ")]
     [SerializeField] int lengthWildCard = 10;
     [SerializeField] int widthWildCard = 10;
+    /// <summary>
+    /// Gets or sets the flag for randomizing the seed.
+    /// </summary>
     public bool RandomizeSeed
     {
         get { return randomizeSeed; }
@@ -28,11 +58,17 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] List<BuildingBase> buildings;
     
     [SerializeField] int numBuildings = 20;
+    /// <summary>
+    /// Gets the seed for terrain generation.
+    /// </summary>
     private Vector2 seed;
     public Vector2 Seed => seed;
     [SerializeField] Transform parent;
     private const float MinRandomRange = 0f;
     private const float MaxRandomRange = 9999f;
+    /// <summary>
+    /// Initializes the MapGenerator and terrain.
+    /// </summary>
     public void Awake()
     {
         GenerateSeed();
@@ -40,11 +76,19 @@ public class MapGenerator : MonoBehaviour
         terrain = GetComponent<Terrain>();
         
     }
+    /// <summary>
+    /// Initializes the MapGenerator with specified map generator and terrain.
+    /// </summary>
+    /// <param name="_mapGenerator">The map generator to use.</param>
+    /// <param name="terrain">The terrain to modify.</param>
     public void Initialize(IMapGenerator _mapGenerator, Terrain terrain)
     {   
         mapGenerators = _mapGenerator;
         this.terrain = terrain;
     }
+    /// <summary>
+    /// Generates a seed for terrain generation.
+    /// </summary>
     private void GenerateSeed()
     {
         if (randomizeSeed)
@@ -56,8 +100,10 @@ public class MapGenerator : MonoBehaviour
             seed = Vector2.zero;
         }
     }
-    
 
+    /// <summary>
+    /// Generates the terrain, destroys existing buildings, places new buildings, and applies texture.
+    /// </summary>
     public void GenerateIMapGenerator()
     {
         DestroyBuildings();
@@ -66,6 +112,9 @@ public class MapGenerator : MonoBehaviour
         PlaceBuildings();
         ApplyTexture();
     }
+    /// <summary>
+    /// Destroys all existing buildings in the scene.
+    /// </summary>
     private void DestroyBuildings()
     {
         BuildingBase[] buildings = FindObjectsOfType<BuildingBase>();
@@ -77,7 +126,9 @@ public class MapGenerator : MonoBehaviour
             else DestroyImmediate(building.gameObject);    
         }
     }
-    
+    /// <summary>
+    /// Places buildings on the terrain.
+    /// </summary>
     private void PlaceBuildings()
     {
         for (int i = 0; i < numBuildings; i++)
@@ -104,7 +155,10 @@ public class MapGenerator : MonoBehaviour
             }
         }
     }
-
+    /// <summary>
+    /// Tests terrain generation and returns the generated TerrainData.
+    /// </summary>
+    /// <returns>The generated TerrainData.</returns>
     public TerrainData TestTerrainSpawn()
     {
         terrain.terrainData = mapGenerators.GenerateTerrainData(terrainWidth, terrainLength, terrainHeight, seed, scale);
@@ -112,6 +166,9 @@ public class MapGenerator : MonoBehaviour
         
     }
     [SerializeField] Texture2D texture;
+    /// <summary>
+    /// Applies a texture to the terrain.
+    /// </summary>
     private void ApplyTexture()
     {
         TerrainLayer terrainLayer = new TerrainLayer();

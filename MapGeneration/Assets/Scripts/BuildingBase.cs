@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Abstract class that is base for all spawnable objects
+/// </summary>
 public abstract class BuildingBase : MonoBehaviour, IBuildingPlacer
 {
     public abstract Vector3 BoxSize {get;}
