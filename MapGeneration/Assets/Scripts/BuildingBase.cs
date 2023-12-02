@@ -6,6 +6,6 @@ public abstract class BuildingBase : MonoBehaviour, IBuildingPlacer
 {
     public abstract Vector3 BoxSize {get;}
 
-    public abstract GameObject PlaceBuilding(Vector3 position, Quaternion rotation);
+    public abstract GameObject PlaceBuilding(Vector3 position, Quaternion rotation, Transform parent);
 
 }

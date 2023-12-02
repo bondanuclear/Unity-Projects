@@ -15,6 +15,10 @@ public class MapGenerator : MonoBehaviour
     
     private Terrain terrain;
     [SerializeField] bool randomizeSeed = false;
+
+    [Header("Building spawn parameters: ")]
+    [SerializeField] int lengthWildCard = 10;
+    [SerializeField] int widthWildCard = 10;
     public bool RandomizeSeed
     {
         get { return randomizeSeed; }
@@ -26,6 +30,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] int numBuildings = 20;
     private Vector2 seed;
     public Vector2 Seed => seed;
+    [SerializeField] Transform parent;
     private const float MinRandomRange = 0f;
     private const float MaxRandomRange = 9999f;
     public void Awake()
@@ -34,6 +39,11 @@ public class MapGenerator : MonoBehaviour
         mapGenerators = GetComponent<IMapGenerator>();
         terrain = GetComponent<Terrain>();
         
+    }
+    public void Initialize(IMapGenerator _mapGenerator, Terrain terrain)
+    {   
+        mapGenerators = _mapGenerator;
+        this.terrain = terrain;
     }
     private void GenerateSeed()
     {
@@ -62,7 +72,9 @@ public class MapGenerator : MonoBehaviour
         if(buildings.Length <= 0) return;
         foreach(var building in buildings)
         {
-            Destroy(building.gameObject);
+            if(Application.isPlaying)
+                Destroy(building.gameObject);
+            else DestroyImmediate(building.gameObject);    
         }
     }
     
@@ -71,9 +83,9 @@ public class MapGenerator : MonoBehaviour
         for (int i = 0; i < numBuildings; i++)
         {
             
-            Vector3 position = new Vector3(Random.Range(0, terrainLength), 0, Random.Range(0, terrainWidth));
+            Vector3 position = new Vector3(Random.Range(lengthWildCard, terrainLength - lengthWildCard), 0, Random.Range(widthWildCard, terrainWidth - widthWildCard));
             float terrainHeight = terrain.SampleHeight(position);
-            Debug.Log(terrainHeight);
+           // Debug.Log(terrainHeight);
            
             position.y = terrainHeight;
         
@@ -84,7 +96,7 @@ public class MapGenerator : MonoBehaviour
             if (!Physics.CheckBox(position, boxSize))
             {
                 float Ycoord = Random.Range(0, 359);
-                GameObject buildingInstance = buildingPrefab.PlaceBuilding(position, Quaternion.Euler(0,Ycoord,0));
+                GameObject buildingInstance = buildingPrefab.PlaceBuilding(position, Quaternion.Euler(0,Ycoord,0), parent);
                 
                 Vector3 normal = terrain.terrainData.GetInterpolatedNormal(position.x / terrain.terrainData.size.x, position.z / terrain.terrainData.size.z);
                 buildingInstance.transform.rotation = Quaternion.FromToRotation(buildingInstance.transform.up, normal) * buildingInstance.transform.rotation;
@@ -95,8 +107,7 @@ public class MapGenerator : MonoBehaviour
 
     public TerrainData TestTerrainSpawn()
     {
-        
-        GenerateIMapGenerator();
+        terrain.terrainData = mapGenerators.GenerateTerrainData(terrainWidth, terrainLength, terrainHeight, seed, scale);
         return terrain.terrainData;
         
     }
@@ -110,5 +121,6 @@ public class MapGenerator : MonoBehaviour
         terrainLayers[terrainLayers.Length - 1] = terrainLayer;
         terrain.terrainData.terrainLayers = terrainLayers;
     }
-
+    
 }
+
