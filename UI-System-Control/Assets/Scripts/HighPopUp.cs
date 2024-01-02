@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MediumPopUp : BasePopUp, IKey
+public class HighPopUp : BasePopUp, IKey
 {
     // define the priority of the pop up
-    public int Priority => (int)PrioritiesValues.MediumPriority;
+    public int Priority => (int)PrioritiesValues.HighPriority;
 
-    public string InfoName => "Medium Pop UP";
-    
+    public string InfoName => "High Pop UP";
+
     public void ClosePopUp()
     {
-        
+
         ProcessAnimationClose();
         // other logic
     }
@@ -21,7 +21,7 @@ public class MediumPopUp : BasePopUp, IKey
         ProcessAnimationHide();
         // other logic
     }
-    
+
     public void ShowPopUp()
     {
         ProcessAnimationShow();

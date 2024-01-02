@@ -27,8 +27,9 @@ public abstract class BasePopUp : MonoBehaviour
     public void CloseWithUIController()
     {
         Debug.Log("Calling from " + transform.name);
-        UIController.instance.CloseCurrentAndOpenFollowingUI();
+        UIController.instance.CloseCurrentUI();
     }
+    
     //public abstract void ShowPopUp();
     //public abstract void ClosePopUp();
     //public abstract void HidePopUp();

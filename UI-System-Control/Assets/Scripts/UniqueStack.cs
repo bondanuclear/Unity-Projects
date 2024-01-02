@@ -13,11 +13,6 @@ public class UniqueStack
         {
             popUpStack.Push(key);
             Debug.Log("Pop Up pushed into stack with priority " + key.InfoName + " " + key.Priority);
-            // if(popUpStack.Count > 1) 
-            // {
-            //     SortStack(); // Sort the stack after adding a new element
-            //     Debug.Log("sorting...");
-            // }
             return true;
         }
         else{

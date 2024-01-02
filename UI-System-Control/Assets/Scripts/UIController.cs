@@ -32,34 +32,27 @@ public class UIController : MonoBehaviour
             if (uniqueStack.PushToStack(UI))
                 currentUI = UI;
             currentUI.ShowPopUp();
-            Debug.Log("Stack was empty.. Adding first UI!");
             return;
         }
         ////
         if(currentUI.Priority > UI.Priority)
         {
-            Debug.Log("Current pop up seems to be more important! ");
             if (uniqueStack.PushToStack(UI))
                 uniqueStack.SortStack();
 
         } 
         else if(currentUI.Priority < UI.Priority)
         {
-            Debug.Log("New pop up seems to be more important! ");
-            
             if (uniqueStack.PushToStack(UI))
             {
-                Debug.LogWarning("Current UI is " + currentUI.InfoName + currentUI.Priority);
                 currentUI.ClosePopUp();
                 currentUI = UI;
-                Debug.LogWarning("Changed current UI is " + currentUI.InfoName + currentUI.Priority);
                 currentUI.ShowPopUp();
-                uniqueStack.SortStack();
+                //uniqueStack.SortStack();
             } 
         }
         else 
         {
-            Debug.Log("Adding another one with the same priority: ");
             if (uniqueStack.PushToStack(UI))
                 uniqueStack.SortStack();
         }
@@ -70,14 +63,9 @@ public class UIController : MonoBehaviour
         
     }
    
-    public void CloseCurrentAndOpenFollowingUI()
+    public void CloseCurrentUI()
     {
-        Debug.Log("Clicked Close Button!");
-        uniqueStack.PrintContents();
-        currentUI = uniqueStack.PopFromStack();
-
-        Debug.Log("Contents after popping ");
-        uniqueStack.PrintContents();
+        currentUI = uniqueStack.PopFromStack(); 
         if (currentUI != null)
         {
             Debug.Log("Close Current and Open Following!" + currentUI.InfoName);
@@ -86,20 +74,18 @@ public class UIController : MonoBehaviour
         OpenFollowingUI();
         uniqueStack.PrintContents();
     }
-    // public void CloseCurrentUI(Action closeMethod)
-    // {
-    //     currentUI = uniqueStack.PopFromStack();
-    //     if (currentUI != null)
-    //         closeMethod();
-    //     //     currentUI.ClosePopUp();
-    // }
+    
     
     public void OpenFollowingUI()
     {
         if(uniqueStack.IsStackEmpty()) return;
         currentUI = uniqueStack.PeekAtStack();
-        Debug.Log("Popped for showing " + currentUI.InfoName);
         if (currentUI != null)
             currentUI.ShowPopUp();
+    }
+    public void Print()
+    {
+        Debug.ClearDeveloperConsole();
+        uniqueStack.PrintContents();
     }
 }
