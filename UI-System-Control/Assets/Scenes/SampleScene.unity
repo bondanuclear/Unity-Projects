@@ -218,9 +218,9 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1704106485}
-  - {fileID: 1302393203}
   - {fileID: 2144658373}
   - {fileID: 974811860}
+  - {fileID: 1302393203}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -262,7 +262,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.00002861}
+  m_AnchoredPosition: {x: 0, y: -0.00002861023}
   m_SizeDelta: {x: 100, y: 33.253}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &144238101
@@ -951,13 +951,14 @@ GameObject:
   - component: {fileID: 974811860}
   - component: {fileID: 974811862}
   - component: {fileID: 974811861}
+  - component: {fileID: 974811863}
   m_Layer: 5
-  m_Name: PopUp3
+  m_Name: PopUpMedium
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &974811860
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1017,6 +1018,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 974811859}
   m_CullTransparentMesh: 1
+--- !u!114 &974811863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 974811859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc275003da0e32046a381a98f836dd1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  closeButton: {fileID: 1037961714}
+  acceptButton: {fileID: 335056609}
 --- !u!1 &1037961712
 GameObject:
   m_ObjectHideFlags: 0
@@ -1286,7 +1301,7 @@ GameObject:
   - component: {fileID: 1302393205}
   - component: {fileID: 1302393204}
   m_Layer: 5
-  m_Name: PopUp1
+  m_Name: PopUpHigh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2170,8 +2185,9 @@ GameObject:
   - component: {fileID: 2144658373}
   - component: {fileID: 2144658375}
   - component: {fileID: 2144658374}
+  - component: {fileID: 2144658376}
   m_Layer: 5
-  m_Name: PopUp2
+  m_Name: PopUpLow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2236,6 +2252,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2144658372}
   m_CullTransparentMesh: 1
+--- !u!114 &2144658376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2144658372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 633b5ed40d7500e4ba118010d2cb3f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  closeButton: {fileID: 235904379}
+  acceptButton: {fileID: 708246164}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
