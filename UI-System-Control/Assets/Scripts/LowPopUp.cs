@@ -8,19 +8,19 @@ public class LowPopUp : BasePopUp, IKey
     public int Priority => (int)PrioritiesValues.LowPriority;
 
     public string InfoName => "Low Pop UP";
-
+    
     public void ClosePopUp()
     {
         ProcessAnimationClose();
-        // other logic
+        // other logic  
     }
 
     public void HidePopUp()
-    {
-       ProcessAnimationHide();
-       // other logic
+    { 
+        ProcessAnimationHide();
+        // other logic
     }
-
+    
     public void ShowPopUp()
     {
        ProcessAnimationShow();

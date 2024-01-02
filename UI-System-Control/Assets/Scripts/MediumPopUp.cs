@@ -8,9 +8,10 @@ public class MediumPopUp : BasePopUp, IKey
     public int Priority => (int)PrioritiesValues.MediumPriority;
 
     public string InfoName => "Medium Pop UP";
-
+    
     public void ClosePopUp()
     {
+        Debug.Log("Closing medium");
         ProcessAnimationClose();
         // other logic
     }
@@ -20,10 +21,11 @@ public class MediumPopUp : BasePopUp, IKey
         ProcessAnimationHide();
         // other logic
     }
-
+    
     public void ShowPopUp()
     {
         ProcessAnimationShow();
+
         // other logic
     }
     public void TriggerPopUp()

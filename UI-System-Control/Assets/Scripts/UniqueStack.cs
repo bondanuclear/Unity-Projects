@@ -12,12 +12,12 @@ public class UniqueStack
         if (!popUpStack.Contains(key))
         {
             popUpStack.Push(key);
-            //Debug.Log("Pop Up pushed into stack with priority " + key.Priority);
-            if(popUpStack.Count > 1) 
-            {
-                SortStack(); // Sort the stack after adding a new element
-                Debug.Log("sorting...");
-            }
+            Debug.Log("Pop Up pushed into stack with priority " + key.InfoName + " " + key.Priority);
+            // if(popUpStack.Count > 1) 
+            // {
+            //     SortStack(); // Sort the stack after adding a new element
+            //     Debug.Log("sorting...");
+            // }
             return true;
         }
         else{
@@ -25,6 +25,14 @@ public class UniqueStack
             Debug.Log("Pop Up already in the stack with priority " + key.Priority);
         }
 
+        return false;
+    }
+    public bool AlreadyInStack(IKey key)
+    {
+        if(popUpStack.Contains(key))
+        {
+            return true;
+        }
         return false;
     }
     public bool IsStackEmpty()
