@@ -81,25 +81,23 @@ public class UIController : MonoBehaviour
         if (currentUI != null)
         {
             Debug.Log("Close Current and Open Following!" + currentUI.InfoName);
-            currentUI.ClosePopUp();
-            
-            OpenFollowingUI();
+            currentUI.ClosePopUp();   
         }
-            
+        OpenFollowingUI();
         uniqueStack.PrintContents();
     }
-    public void CloseCurrentUI(Action closeMethod)
-    {
-        currentUI = uniqueStack.PopFromStack();
-        if (currentUI != null)
-            closeMethod();
-        //     currentUI.ClosePopUp();
-    }
+    // public void CloseCurrentUI(Action closeMethod)
+    // {
+    //     currentUI = uniqueStack.PopFromStack();
+    //     if (currentUI != null)
+    //         closeMethod();
+    //     //     currentUI.ClosePopUp();
+    // }
     
     public void OpenFollowingUI()
     {
         if(uniqueStack.IsStackEmpty()) return;
-        currentUI = uniqueStack.PopFromStack();
+        currentUI = uniqueStack.PeekAtStack();
         Debug.Log("Popped for showing " + currentUI.InfoName);
         if (currentUI != null)
             currentUI.ShowPopUp();
