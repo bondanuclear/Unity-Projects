@@ -19,6 +19,7 @@ public abstract class BasePopUp : MonoBehaviour
     {
         transform.gameObject.SetActive(false);
     }
+    
     //public abstract void ShowPopUp();
     //public abstract void ClosePopUp();
     //public abstract void HidePopUp();

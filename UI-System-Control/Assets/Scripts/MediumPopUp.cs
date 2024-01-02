@@ -7,6 +7,8 @@ public class MediumPopUp : BasePopUp, IKey
     // define the priority of the pop up
     public int Priority => (int)PrioritiesValues.MediumPriority;
 
+    public string InfoName => "Medium Pop UP";
+
     public void ClosePopUp()
     {
         ProcessAnimationClose();
@@ -23,5 +25,9 @@ public class MediumPopUp : BasePopUp, IKey
     {
         ProcessAnimationShow();
         // other logic
+    }
+    public void TriggerPopUp()
+    {
+        UIController.instance.SetUIControl(this);
     }
 }

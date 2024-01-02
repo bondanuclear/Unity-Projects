@@ -3,5 +3,5 @@ public interface IKey {
     void ClosePopUp();
     void HidePopUp();
     int Priority {get;}
-    
+    string InfoName {get;}
 }

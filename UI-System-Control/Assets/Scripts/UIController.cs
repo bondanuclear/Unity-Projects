@@ -6,6 +6,7 @@ public class UIController : MonoBehaviour
 {
     public static UIController instance;
     UniqueStack uniqueStack;
+    IKey currentUI;
 
     private void Awake() {
         if(instance == null)
@@ -20,7 +21,16 @@ public class UIController : MonoBehaviour
 
     public void SetUIControl(IKey UI)
     {
-        uniqueStack.PushToStack(UI);
+        if(uniqueStack.PushToStack(UI))
+        {
+            currentUI = UI;
+            Debug.LogWarning($"Managed to push, currentUI is {currentUI.InfoName}");
+            uniqueStack.PrintContents();
+        }
+        
+        
+        
+        Debug.Log(uniqueStack.PeekAtStack().InfoName + " AFTER PEEKING() ");
     }
 
 }

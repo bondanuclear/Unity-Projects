@@ -12,7 +12,12 @@ public class UniqueStack
         if (!popUpStack.Contains(key))
         {
             popUpStack.Push(key);
-            //SortStack(); // Sort the stack after adding a new element
+            //Debug.Log("Pop Up pushed into stack with priority " + key.Priority);
+            if(popUpStack.Count > 1) 
+            {
+                SortStack(); // Sort the stack after adding a new element
+                Debug.Log("sorting...");
+            }
             return true;
         }
         else{
@@ -53,5 +58,12 @@ public class UniqueStack
         List<IKey> sortedList = popUpStack.ToList();
         sortedList.Sort((x, y) => x.Priority.CompareTo(y.Priority));
         popUpStack = new Stack<IKey>(sortedList);
+    }
+    public void PrintContents()
+    {
+        foreach(var item in popUpStack)
+        {
+            Debug.Log(item.InfoName + " " + item.Priority);
+        }
     }
 }
