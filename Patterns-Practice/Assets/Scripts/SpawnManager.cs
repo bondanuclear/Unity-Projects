@@ -8,7 +8,7 @@ public class SpawnManager : MonoBehaviour
     //    enemy = enemyFactory.CreateEnemy();
     //    enemy?.Attack();
 
-        Enemy enemy = new Enemy.Builder()
+        Enemy orc = new Enemy.Builder()
             .WithName("Orc with Axe")
             .WithArmor(10)
             .WithHealth(100)
@@ -16,7 +16,7 @@ public class SpawnManager : MonoBehaviour
             .WithDamage(20)
             .Build();
 
-        Debug.Log($"{enemy.Name} is an enemy with {enemy.Armor} armor, {enemy.Damage} damage");
+        Debug.Log($"{orc.Name} is an enemy with {orc.Armor} armor, {orc.Damage} damage");
         //Instantiate(enemy);
     }
 }
